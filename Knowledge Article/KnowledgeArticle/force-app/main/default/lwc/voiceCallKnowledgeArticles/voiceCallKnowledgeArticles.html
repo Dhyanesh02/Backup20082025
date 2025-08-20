@@ -1,0 +1,96 @@
+<template>
+    <lightning-card title="Related Knowledge Articles" icon-name="utility:article">
+        <div slot="actions">
+            <lightning-button-icon 
+                icon-name="utility:refresh" 
+                variant="border-filled" 
+                alternative-text="Refresh"
+                title="Refresh Articles"
+                onclick={handleRefresh}
+                disabled={isLoading}>
+            </lightning-button-icon>
+        </div>
+        
+        <div class="slds-p-around_medium">
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-is-relative slds-p-around_medium">
+                    <lightning-spinner alternative-text="Loading related knowledge articles..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Error Message -->
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                    <span class="slds-assistive-text">error</span>
+                    <h2>Error loading knowledge articles</h2>
+                    <p>{error.body.message}</p>
+                </div>
+            </template>
+
+            <!-- No Voice Call ID Message -->
+            <template if:false={actualVoiceCallId}>
+                <template if:false={isLoading}>
+                    <template if:false={error}>
+                        <div class="slds-text-align_center slds-p-vertical_medium">
+                            <lightning-icon icon-name="utility:warning" size="medium" class="slds-m-bottom_small"></lightning-icon>
+                            <p class="slds-text-heading_small slds-text-color_weak">No Voice Call ID available. Please ensure this component is placed on a Voice Call record page.</p>
+                            <p class="slds-text-body_small slds-text-color_weak">Record ID: {recordId}</p>
+                            <p class="slds-text-body_small slds-text-color_weak">Voice Call ID: {voiceCallId}</p>
+                        </div>
+                    </template>
+                </template>
+            </template>
+
+            <!-- No Articles Message -->
+            <template if:true={actualVoiceCallId}>
+                <template if:false={hasArticles}>
+                    <template if:false={isLoading}>
+                        <template if:false={error}>
+                            <div class="slds-text-align_center slds-p-vertical_medium">
+                                <lightning-icon icon-name="utility:info" size="medium" class="slds-m-bottom_small"></lightning-icon>
+                                <p class="slds-text-heading_small slds-text-color_weak">No related knowledge articles found for this conversation.</p>
+                            </div>
+                        </template>
+                    </template>
+                </template>
+            </template>
+
+            <!-- Articles List -->
+            <template if:true={actualVoiceCallId}>
+                <template if:true={hasArticles}>
+                    <div class="slds-m-bottom_medium">
+                        <p class="slds-text-body_small slds-text-color_weak">
+                            Found {articleCount} related article{articleCountText}
+                        </p>
+                    </div>
+                    
+                    <div class="articles-container">
+                        <template for:each={articles} for:item="article">
+                            <div key={article.id} class="article-item slds-card slds-m-bottom_small">
+                                <div class="slds-card__body slds-card__body_inner">
+                                                      
+                                    <div class="article-title-container"
+                                         data-id={article.id}
+                                         onclick={handleArticleClick}>
+                                        <h3 class="slds-text-heading_small slds-text-link article-title">
+                                            {article.title}
+                                        </h3>
+                                    </div>
+                                    
+                                    <div class="slds-grid slds-grid_align-spread slds-m-top_small">
+                                        <template if:true={article.articleNumber}>
+                                            <div class="slds-text-body_small slds-text-color_weak">
+                                                #{article.articleNumber}
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,139 @@
+.article-item {
+    transition: box-shadow 0.2s ease;
+    border: 1px solid #dddbda;
+    cursor: pointer;
+}
+
+.article-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-color: #0176d3;
+    transform: translateY(-1px);
+}
+
+.article-title-container {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.article-title-container:hover {
+    background-color: #f3f3f3;
+}
+
+.article-title {
+    margin: 0;
+    color: #0070d2;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.article-title:hover {
+    text-decoration: underline;
+}
+
+.articles-container {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+/* Rich text content styling */
+[data-field="question"],
+[data-field="answer"] {
+    line-height: 1.5;
+}
+
+[data-field="question"] p,
+[data-field="answer"] p {
+    margin-bottom: 0.5rem;
+}
+
+[data-field="question"] ul,
+[data-field="answer"] ul,
+[data-field="question"] ol,
+[data-field="answer"] ol {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .article-popup {
+        max-width: 90vw;
+        min-width: 280px;
+        left: 5vw !important;
+        transform: none !important;
+    }
+    
+    .popup-content .slds-card__body_inner {
+        max-height: 300px;
+    }
+}
+
+/* Loading state */
+.slds-is-relative {
+    min-height: 100px;
+}
+
+/* Error state */
+.slds-notify_alert {
+    border-radius: 0.25rem;
+}
+
+/* Empty state */
+.slds-text-align_center {
+    padding: 2rem 1rem;
+}
+
+/* Badge styling for record types */
+.slds-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Score display */
+.slds-text-color_weak {
+    font-size: 0.75rem;
+}
+
+/* Article metadata */
+.article-item .slds-grid_align-spread:last-child {
+    border-top: 1px solid #f3f2f2;
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+/* Hover effects for interactive elements */
+.lightning-button-icon:hover {
+    background-color: #f3f2f2;
+}
+
+.lightning-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Accessibility improvements */
+.article-title:focus {
+    outline: 2px solid #0176d3;
+    outline-offset: 2px;
+}
+
+/* Scrollbar styling for containers */
+.articles-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.articles-container::-webkit-scrollbar-track {
+    background: #f3f2f2;
+    border-radius: 3px;
+}
+
+.articles-container::-webkit-scrollbar-thumb {
+    background: #c9c7c5;
+    border-radius: 3px;
+}
+
+.articles-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
